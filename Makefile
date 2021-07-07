@@ -19,6 +19,10 @@ SRC_DIR = src
 OUTPUT_DIR = output
 BUILD_DIR = build
 
+# Directory containing libipopt shared library if not on standard library search path
+# Either edit and uncomment line below or set as a variable in shell before calling
+# LIBIPOPT_DIR = $(HOME)/miniconda3/envs/ipopt/lib
+
 # Name to use for built application
 APP_NAME = run_optimization
 
@@ -26,7 +30,11 @@ APP_NAME = run_optimization
 FC = gfortran
 
 # Libraries to link against
-LIBS = -lipopt
+ifdef LIBIPOPT_DIR
+  LIBS = -L$(LIBIPOPT_DIR) -lipopt
+else
+  LIBS = -lipopt
+endif
 
 # Compiler flags
 FFLAGS = -fcheck=bounds -ffree-line-length-0 -fimplicit-none -m64
