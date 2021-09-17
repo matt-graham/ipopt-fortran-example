@@ -95,7 +95,7 @@ module problem71
   end subroutine
 
   subroutine eval_jacob_constraint( &
-    task, size_x, x, x_is_new, size_g, nonzero_jacob_g, jacob_g_col, jacob_g_row, &
+    task, size_x, x, x_is_new, size_g, nonzero_jacob_g, jacob_g_row, jacob_g_col, &
     jacob_g_val, int_data, real_data, error_code &
   )
     ! Evaluate Jacobian of equality constraint function
@@ -105,16 +105,16 @@ module problem71
     integer, intent(in) :: x_is_new
     integer, intent(in) :: size_g
     integer, intent(in) :: nonzero_jacob_g
-    integer, intent(out) :: jacob_g_col(nonzero_jacob_g)
     integer, intent(out) :: jacob_g_row(nonzero_jacob_g)
+    integer, intent(out) :: jacob_g_col(nonzero_jacob_g)
     real(dp), intent(out) :: jacob_g_val(nonzero_jacob_g)
     integer, intent(in) ::  int_data(:)
     real(dp), intent(in) :: real_data(:)
     integer, intent(out) :: error_code
 
     if (task == 0) then
-      jacob_g_row = [1, 2, 3, 4, 1, 2, 3, 4]
-      jacob_g_col = [1, 1, 1, 1, 2, 2, 2, 2]
+      jacob_g_row = [1, 1, 1, 1, 2, 2, 2, 2]
+      jacob_g_col = [1, 2, 3, 4, 1, 2, 3, 4]
     else
       jacob_g_val(1) = x(2) * x(3) * x(4)
       jacob_g_val(2) = x(1) * x(3) * x(4)
